@@ -150,3 +150,41 @@ footer {
 .btn-ghost { border: 1px solid #333740; color: #333740; }
 .btn-ghost:hover { background: #333740; color: #fff; }
 
+/* Hero with logo */
+.hero { max-width: 980px; margin: 28px auto 110px; padding: 0 16px; }
+.hero-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.hero-logo { width: 56px; height: 56px; object-fit: contain; }
+.accent { color: #333740; }
+.tagline { font-weight: 600; margin: -6px 0 8px; }
+.intro { margin: 6px 0; color: #4a5160; }
+.hero-actions { display: flex; gap: 10px; margin: 12px 0 14px; }
+
+/* Highlights grid */
+.highlights { 
+  list-style: none; padding: 0; margin: 14px 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px;
+}
+.highlights li::before { content: "• "; color: #333740; font-weight: 700; }
+
+/* Tool chips */
+.tools { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-block; background: #eef1f6; border: 1px solid #dfe3ea;
+  padding: 4px 10px; border-radius: 999px; font-size: 13px; color: #2b2f36;
+}
+
+/* Quote */
+.quote { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid #333740; background: #f6f7f9; border-radius: 8px; }
+.quote .attribution { display: block; margin-top: 6px; color: #6b7280; font-size: .9em; }
+
+/* Buttons (reuse theme) */
+.btn, .btn-ghost { display: inline-block; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-size: 14px; }
+.btn { background: #333740; color: #fff; }
+.btn:hover { filter: brightness(1.05); }
+.btn-ghost { border: 1px solid #333740; color: #333740; }
+.btn-ghost:hover { background: #333740; color: #fff; }
+
+@media (max-width: 600px){
+  .hero-logo { width: 44px; height: 44px; }
+}
+
