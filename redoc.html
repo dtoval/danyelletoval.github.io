@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>LMS API Reference</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>body{margin:0}</style>
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
-  </head>
-  <body>
-    <!-- If you move openapi.yaml to /docs, change spec-url to docs/openapi.yaml -->
-    <redoc spec-url="https://dtoval.github.io/danyelletoval.github.io/openapi.json"></redoc>
-
-
-
-
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>LMS API Reference (ReDoc)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>html,body,#redoc-container{height:100%;margin:0}</style>
+  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+</head>
+<body>
+  <div id="redoc-container"></div>
+  <script>
+    Redoc.init(
+      'https://dtoval.github.io/danyelletoval.github.io/openapi.json',
+      {
+        hideDownloadButton: false,
+        expandResponses: '200,201',
+        scrollYOffset: 50
+      },
+      document.getElementById('redoc-container')
+    );
+  </script>
+</body>
 </html>
