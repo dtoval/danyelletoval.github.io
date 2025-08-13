@@ -12,6 +12,12 @@ header {
   text-align: center;
 }
 
+/* Make sure nav area also has the dark gray background */
+nav {
+  background-color: #333740;
+  padding: 10px 0;
+}
+
 nav a {
   color: white;
   margin: 0 10px;
@@ -27,7 +33,7 @@ main {
 }
 
 footer {
-  background-color: #333740; /* gray */
+  background-color: #333740; /* dark gray */
   color: white;
   text-align: center;
   padding: 10px;
