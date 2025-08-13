@@ -1,25 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>About Me - Danyelle Toval</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About – Danyelle Toval</title>
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="icon" href="logo.png" type="image/png" />
 </head>
 <body>
-<header>
-  <h1>About Me</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-<main>
-  <p>I am a Technical Writer and eLearning Developer with over 16 years of experience in IT, documentation, and training development. My expertise
-    includes API documentation, release notes, LMS administration, SCORM compliance, and creating interactive learning content.</p>
-</main>
-<footer>
-  <p>&copy; 2025 Danyelle Toval</p>
-</footer>
+  <header class="site-header">
+    <div class="brand">
+      <img class="brand-logo" src="logo.png" alt="Butterfly logo" />
+      <div class="brand-text">
+        <div class="site-name">Danyelle Toval</div>
+        <div class="site-tag">Technical Writer &amp; eLearning Developer</div>
+      </div>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <section class="hero" style="margin-bottom: 22px;">
+      <h1>About Me</h1>
+      <p class="intro">
+        I turn complex systems into clear documentation and practical learning experiences. 
+        My background in IT support and system administration gives me a hands-on view of how tools work,
+        how people learn, and what teams need to ship.
+      </p>
+      <p class="intro">
+        I build API docs, release notes, SOPs, and interactive learning content (SCORM), with an eye for accessibility and process.
+        I hold an <strong>M.S. from Southern New Hampshire University</strong>.
+      </p>
+    </section>
+
+    <section style="max-width: 980px; margin: 0 auto; padding: 0 16px;">
+      <h2>Core Skills</h2>
+      <ul class="highlights">
+        <li>API documentation &amp; developer guides (OpenAPI)</li>
+        <li>Release notes &amp; change logs</li>
+        <li>SOPs &amp; LMS admin playbooks</li>
+        <li>SCORM packaging, publishing &amp; QA</li>
+        <li>SharePoint publishing &amp; content governance</li>
+        <li>Video/audio cleanup, transcripts &amp; captions</li>
+      </ul>
+
+      <h2>Tools &amp; Platforms</h2>
+      <div class="tools" style="margin-bottom: 8px;">
+        <span class="chip">SharePoint</span>
+        <span class="chip">Microsoft Teams &amp; Outlook</span>
+        <span class="chip">GitHub Pages</span>
+        <span class="chip">Articulate / SCORM</span>
+        <span class="chip">Copilot-assisted editing</span>
+        <span class="chip">Camtasia / basic audio edits</span>
+      </div>
+
+      <h2>What Teammates Say</h2>
+      <blockquote class="quote">
+        “Danyelle has an exceptional eye for detail and turns chaos into clarity—reviewing SharePoint, SCORM, and video assets,
+        streamlining processes that save hours, and jumping in to meet deadlines without being asked.”
+        <span class="attribution">— Colleague, Design &amp; Learning Team</span>
+      </blockquote>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Danyelle Toval</p>
+  </footer>
 </body>
 </html>
