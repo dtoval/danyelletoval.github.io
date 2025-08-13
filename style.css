@@ -121,3 +121,32 @@ footer {
   .brand-logo{width:32px; height:32px}
   .brand-text .site-name{font-size:16px}
 }
+
+/* Hero / welcome */
+.hero { max-width: 900px; margin: 28px auto 96px; padding: 0 16px; }
+.hero .accent { color: #333740; }
+.tagline { font-weight: 600; margin-top: -6px; margin-bottom: 8px; }
+.intro { margin: 6px 0; color: #4a5160; }
+.hero-actions { display: flex; gap: 10px; margin: 12px 0 14px; }
+
+.highlights { 
+  list-style: none; padding: 0; margin: 16px 0; 
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 16px;
+}
+.highlights li::before { content: "• "; color: #333740; font-weight: 700; }
+
+.quote { 
+  margin: 18px 0 0; padding: 14px 16px; 
+  border-left: 4px solid #333740; background: #f6f7f9; border-radius: 8px;
+}
+.quote .attribution { display: block; margin-top: 6px; color: #6b7280; font-size: 0.9em; }
+
+/* Buttons (reuses your theme) */
+.btn, .btn-ghost {
+  display: inline-block; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-size: 14px;
+}
+.btn { background: #333740; color: #fff; }
+.btn:hover { filter: brightness(1.05); }
+.btn-ghost { border: 1px solid #333740; color: #333740; }
+.btn-ghost:hover { background: #333740; color: #fff; }
+
