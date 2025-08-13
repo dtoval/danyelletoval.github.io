@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact – Danyelle Toval</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
   <link rel="icon" href="logo.png" type="image/png" />
 
   <!-- Page-specific styles (keeps your global theme) -->
@@ -16,14 +16,13 @@
     .form-row{display:flex;flex-direction:column;gap:6px}
     .form-row.full{grid-column:1 / -1}
     label{font-weight:600}
-    input, textarea{
-      border:1px solid #dfe3ea;border-radius:10px;padding:10px 12px;font-size:14px;
-    }
+    input, textarea{border:1px solid #dfe3ea;border-radius:10px;padding:10px 12px;font-size:14px}
     textarea{min-height:140px;resize:vertical}
     .hint{font-size:12px;color:#6b7280}
     .form-actions{display:flex;gap:10px;margin-top:10px}
     .success{display:none;margin-top:10px;color:#155724;background:#e6ffed;border:1px solid #b7f5c2;padding:10px;border-radius:8px}
     .error{display:none;margin-top:10px;color:#9f1d1d;background:#ffecec;border:1px solid #ffbcbc;padding:10px;border-radius:8px}
+    /* Honeypot hide */
     .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
 </head>
@@ -73,6 +72,14 @@
               <textarea id="message" name="message" required placeholder="Tell me a bit about your project, timeline, and goals."></textarea>
               <div class="hint">I typically respond within 1–2 business days.</div>
             </div>
+
+            <!-- Time trap -->
+            <input type="hidden" id="ts" name="ts" />
+            <!-- Human check -->
+            <label class="form-row full" for="human">
+              Anti-spam check: what is <span id="qA"></span> + <span id="qB"></span>?
+              <input id="human" name="human" inputmode="numeric" pattern="\d+" required placeholder="Your answer" />
+            </label>
           </div>
 
           <!-- Honeypot (spam trap) -->
@@ -88,15 +95,15 @@
         </form>
       </section>
 
-      <!-- Card: Direct email -->
+      <!-- Card: Direct email (email is obfuscated; filled by JS) -->
       <section class="contact-card">
         <h2>Direct Email</h2>
         <p>
           Prefer to email directly? Use:
           <br />
-          <a id="mailtoLink" class="btn-ghost" href="mailto:danyelle.toval@gmail.com">danyelle.toval@gmail.com</a>
+          <a id="mailtoLink" class="btn-ghost" href="#">Email me</a>
         </p>
-        <p class="hint">Tip: If the button above doesn’t open your mail client, copy the address and paste it into your email.</p>
+        <p class="hint">Tip: If the button above doesn’t open your mail client, copy the address after it appears and paste into your email.</p>
       </section>
     </div>
   </main>
@@ -105,50 +112,82 @@
     <p>&copy; 2025 Danyelle Toval</p>
   </footer>
 
-  <!-- Email wiring -->
+  <!-- Email + anti-spam wiring -->
   <script>
-    // ========= Set your destination email here =========
-    const TO_EMAIL = "danyelle.toval@gmail.com";
+    // ========= Configure once (email is NOT exposed in HTML) =========
+    const USER = "danyelle.toval";
+    const DOMAIN = "gmail.com";
+    const TO_EMAIL = USER + "@" + DOMAIN;
 
-    // Keep "Direct Email" in sync
+    // Fill the direct email link at runtime (basic obfuscation)
     const mailtoA = document.getElementById("mailtoLink");
     if (mailtoA) {
       mailtoA.textContent = TO_EMAIL;
       mailtoA.href = "mailto:" + TO_EMAIL;
     }
 
-    // Form -> open user's mail client with prefilled message
+    // Form wiring
     const form = document.getElementById("contactForm");
     const ok = document.getElementById("ok");
     const bad = document.getElementById("bad");
+
+    // Traps
+    const ts = document.getElementById("ts");
+    const qA = document.getElementById("qA");
+    const qB = document.getElementById("qB");
+    const human = document.getElementById("human");
+
+    // Init time trap + math
+    const start = Date.now();
+    if (ts) ts.value = String(start);
+    const a = Math.floor(2 + Math.random() * 4);   // 2..5
+    const b = Math.floor(3 + Math.random() * 4);   // 3..6
+    if (qA) qA.textContent = a;
+    if (qB) qB.textContent = b;
+    const correct = a + b;
 
     if (form) {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // honeypot check
+        // Honeypot check
         const hp = document.getElementById("company");
         if (hp && hp.value.trim() !== "") {
           if (bad) { bad.style.display = "block"; bad.textContent = "Spam detected. Please email me directly at " + TO_EMAIL + "."; }
           return;
         }
 
+        // Time trap: require ~3s on page
+        const elapsed = Date.now() - (Number(ts?.value || start));
+        if (elapsed < 3000) {
+          if (bad) { bad.style.display = "block"; bad.textContent = "Please wait a moment before submitting."; }
+          return;
+        }
+
+        // Human math check
+        if (!human || String(correct) !== human.value.trim()) {
+          if (bad) { bad.style.display = "block"; bad.textContent = "Please answer the anti-spam question correctly."; }
+          return;
+        }
+
+        // Build mailto
         const name    = (document.getElementById("name")    || {}).value?.trim() || "";
         const from    = (document.getElementById("email")   || {}).value?.trim() || "";
         const subject = (document.getElementById("subject") || {}).value?.trim() || "Portfolio inquiry";
         const message = (document.getElementById("message") || {}).value?.trim() || "";
 
-        const bodyLines = [
+        const body = [
           `Name: ${name}`,
           `Email: ${from}`,
           "",
           message
-        ];
+        ].join("\n");
+
         const mailtoURL =
-          `mailto:${encodeURIComponent(TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+          `mailto:${encodeURIComponent(TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         try {
-          window.location.href = mailtoURL;
+          window.location.href = mailtoURL;   // opens the visitor's mail app
           if (ok)  ok.style.display = "block";
           if (bad) bad.style.display = "none";
         } catch (err) {
