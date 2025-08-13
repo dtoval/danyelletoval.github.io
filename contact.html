@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact – Danyelle Toval</title>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
   <link rel="icon" href="logo.png" type="image/png" />
 
   <!-- Page-specific styles (keeps your global theme) -->
@@ -81,9 +81,6 @@
         <div class="row" style="margin-top:10px">
           <a class="btn" href="https://www.linkedin.com/in/danyelletoval/" target="_blank" rel="noopener"
              aria-label="Open LinkedIn profile in a new tab">Visit Profile</a>
-          <a class="btn-ghost" href="https://www.linkedin.com/in/danyelletoval/details/contact-info/" target="_blank" rel="noopener">
-            Contact Info
-          </a>
         </div>
       </section>
 
@@ -107,12 +104,8 @@
     const copyOk = document.getElementById("copyOk");
     const copyErr = document.getElementById("copyErr");
 
-    function show(target) {
-      if (target) { target.style.display = "block"; }
-    }
-    function hide(target) {
-      if (target) { target.style.display = "none"; }
-    }
+    function show(target) { if (target) target.style.display = "block"; }
+    function hide(target) { if (target) target.style.display = "none"; }
 
     // Fill visible address and mailto
     if (emailText) emailText.textContent = TO_EMAIL;
