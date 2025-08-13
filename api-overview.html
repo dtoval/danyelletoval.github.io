@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LMS API Overview</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .prose {max-width: 880px; margin: 28px auto 96px; padding: 0 16px;}
+    .prose h1 {margin: 0 0 12px}
+    .callout {
+      background: #f6f7f9; border-left: 4px solid #333740;
+      padding: 12px 14px; border-radius: 8px; margin: 12px 0 18px;
+    }
+    code.k {background:#f0f2f6; padding:2px 6px; border-radius:6px}
+    pre {background:#0f1217; color:#f1f5f9; padding:14px; border-radius:10px; overflow:auto}
+    a.inline {color:#333740; text-decoration:underline}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>LMS API Overview</h1>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="redoc.html" target="_blank" rel="noopener">API Reference</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="prose">
+    <div class="callout">
+      <strong>Note:</strong> This is a portfolio sample. All names and endpoints are fictional.
+    </div>
+
+    <p><strong>Base URL:</strong> <code class="k">https://api.sampleuniversity.edu/v1</code><br/>
+       <strong>Format:</strong> JSON over HTTPS • <strong>Auth:</strong> Bearer token</p>
+
+    <h2>Authentication</h2>
+    <p>Request a token using client credentials, then include it on each call.</p>
+<pre><code>curl -X POST https://auth.sampleuniversity.edu/oauth2/token \
+  -d grant_type=client_credentials \
+  -u CLIENT_ID:CLIENT_SECRET
+</code></pre>
+
+    <p>Send the token in the header:</p>
+<pre><code>Authorization: Bearer YOUR_TOKEN
+</code></pre>
+
+    <h2>Conventions</h2>
+    <ul>
+      <li><strong>Pagination</strong>: <code class="k">page</code> 1..n, <code class="k">page_size</code> default 25 max 100</li>
+      <li><strong>Filtering</strong>: query params like <code class="k">?q=ethics&amp;delivery=eLearning</code></li>
+      <li><strong>Rate limit</strong>: 60 requests / minute</li>
+      <li><strong>Error model</strong> (example):</li>
+    </ul>
+<pre><code>{
+  "error": "invalid_request",
+  "message": "page_size must be &lt;= 100",
+  "request_id": "req_abc123",
+  "status": 400
+}
+</code></pre>
+
+    <h2>Quickstart</h2>
+    <h3>Search the Library</h3>
+<pre><code>curl "https://api.sampleuniversity.edu/v1/courses?q=ethics&page=1&page_size=10" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+</code></pre>
+
+    <h3>Get a Course</h3>
+<pre><code>curl "https://api.sampleuniversity.edu/v1/courses/crs_123" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+</code></pre>
+
+    <h3>Enroll in a Course</h3>
+<pre><code>curl -X POST "https://api.sampleuniversity.edu/v1/courses/crs_123/enroll" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"attempt":"first"}'
+</code></pre>
+
+    <h3>View Your Learning Record</h3>
+<pre><code>curl "https://api.sampleuniversity.edu/v1/me/record" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+</code></pre>
+
+    <p>See the full interactive reference: <a class="inline" href="redoc.html" target="_blank" rel="noopener">ReDoc API Reference</a>.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Danyelle Toval</p>
+  </footer>
+</body>
+</html>
