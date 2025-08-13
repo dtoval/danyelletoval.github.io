@@ -5,18 +5,15 @@
   <title>LMS API Reference (ReDoc)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>html,body,#redoc-container{height:100%;margin:0}</style>
-  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+  <!-- Use jsDelivr instead of cdn.redoc.ly -->
+  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
 </head>
 <body>
   <div id="redoc-container"></div>
   <script>
     Redoc.init(
       'https://dtoval.github.io/danyelletoval.github.io/openapi.json',
-      {
-        hideDownloadButton: false,
-        expandResponses: '200,201',
-        scrollYOffset: 50
-      },
+      { hideDownloadButton:false, expandResponses:'200,201', scrollYOffset:50 },
       document.getElementById('redoc-container')
     );
   </script>
