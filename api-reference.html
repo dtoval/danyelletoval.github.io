@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LMS API Reference (No-CDN)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Minimal styles (works with your #333740 theme) */
+    .wrap{max-width:1000px;margin:24px auto 96px;padding:0 16px}
+    .api-header{background:#333740;color:#fff;padding:14px 16px;border-radius:10px;margin:10px 0 18px}
+    .tag{display:inline-block;background:#eef1f6;border:1px solid #dfe3ea;padding:2px 8px;border-radius:999px;margin:0 6px 6px 0;font-size:12px}
+    .method{font-weight:700;padding:2px 8px;border-radius:8px;margin-right:8px}
+    .GET{background:#e6f4ff;border:1px solid #b3dbff}
+    .POST{background:#e9ffe6;border:1px solid #c6f0c2}
+    .PUT{background:#fff3cd;border:1px solid #ffe08a}
+    .PATCH{background:#f5e6ff;border:1px solid #e0c6ff}
+    .DELETE{background:#ffe6e6;border:1px solid #ffb3b3}
+    details{border:1px solid #e6e8ee;border-radius:12px;padding:8px 12px;margin:10px 0; background:#fff}
+    summary{cursor:pointer;outline:none}
+    table{border-collapse:collapse;width:100%;margin:8px 0 0}
+    th,td{border:1px solid #e6e8ee;padding:6px 8px;text-align:left;font-size:14px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+    .desc{color:#4a5160}
+    .muted{color:#6b7280}
+    .small{font-size:12px}
+    .error{background:#ffecec;border:1px solid #ffbcbc;color:#9f1d1d;padding:10px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>LMS API Reference</h1>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="api-overview.html" target="_blank" rel="noopener">Overview & Examples</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div id="status" class="api-header">Loading spec…</div>
+    <div id="info"></div>
+    <div id="content"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Danyelle Toval</p>
+  </footer>
+
+  <script>
+    // Helper: safe text
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+    const METHOD_ORDER = ["GET","POST","PUT","PATCH","DELETE","OPTIONS","HEAD"];
+
+    function renderTable(rows, headers){
+      if (!rows.length) return '<p class="muted small">None</p>';
+      return `
+        <table>
+          <thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+          <tbody>
+            ${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function paramRows(params=[]){
+      return params.map(p=>{
+        const schema = p.schema || {};
+        const type = esc(schema.type || (schema.$ref || ''));
+        const req = p.required ? 'Yes' : 'No';
+        return [
+          `<span class="mono">${esc(p.name)}</span>`,
+          esc(p.in || ''),
+          esc(type),
+          req,
+          esc(p.description || '')
+        ];
+      });
+    }
+
+    function responseRows(responses={}){
+      return Object.entries(responses).map(([code, resp])=>{
+        const desc = typeof resp === 'string' ? resp : (resp.description || '');
+        return [`<span class="mono">${esc(code)}</span>`, esc(desc)];
+      });
+    }
+
+    function requestBodyInfo(rb){
+      if (!rb) return '<p class="muted small">None</p>';
+      let type = '';
+      const appJson = rb.content && rb.content['application/json'];
+      if (appJson && appJson.schema){
+        const s = appJson.schema;
+        type = s.$ref ? `<span class="mono">${esc(s.$ref)}</span>` : esc(s.type || '');
+      }
+      return `<p class="small">application/json schema: ${type || 'unspecified'}</p>`;
+    }
+
+    function groupByTag(paths){
+      const groups = {};
+      for (const [p, ops] of Object.entries(paths)){
+        for (const m of Object.keys(ops)){
+          const method = m.toUpperCase();
+          if (!METHOD_ORDER.includes(method)) continue;
+          const op = ops[m];
+          const tags = (op.tags && op.tags.length ? op.tags : ['General']);
+          for (const t of tags){
+            groups[t] = groups[t] || [];
+            groups[t].push({ path:p, method, op });
+          }
+        }
+      }
+      // Sort methods and paths for stable display
+      for (const t of Object.keys(groups)){
+        groups[t].sort((a,b)=>{
+          const mo = METHOD_ORDER.indexOf(a.method) - METHOD_ORDER.indexOf(b.method);
+          if (mo !== 0) return mo;
+          return a.path.localeCompare(b.path);
+        });
+      }
+      return groups;
+    }
+
+    async function render(){
+      const status = document.getElementById('status');
+      const infoEl = document.getElementById('info');
+      const content = document.getElementById('content');
+
+      try{
+        // Fetch from same origin; change if your spec path differs
+        const res = await fetch('openapi.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Spec not found: ' + res.status);
+        const spec = await res.json();
+
+        // Header
+        const title = esc(spec.info?.title || 'API');
+        const ver = esc(spec.info?.version || '');
+        const desc = esc(spec.info?.description || '');
+        status.innerHTML = `<strong>${title}</strong> <span class="muted">v${ver}</span>`;
+        infoEl.innerHTML = desc ? `<p class="desc">${desc}</p>` : '';
+
+        // Tags + operations
+        const groups = groupByTag(spec.paths || {});
+        const tagNames = Object.keys(groups).sort();
+        if (!tagNames.length){
+          content.innerHTML = '<div class="error">No paths found in this spec.</div>';
+          return;
+        }
+
+        let html = '';
+        for (const tag of tagNames){
+          html += `<h2><span class="tag">${esc(tag)}</span></h2>`;
+          for (const item of groups[tag]){
+            const { path, method, op } = item;
+            const summary = esc(op.summary || '');
+            const params = [].concat(op.parameters || []);
+            // If pathItem parameters exist (rare in this sample), include them:
+            // (Not resolving here for brevity)
+
+            html += `
+              <details>
+                <summary>
+                  <span class="method ${method}">${method}</span>
+                  <span class="mono">${esc(path)}</span>
+                  ${summary ? ` — <span class="desc">${summary}</span>` : ''}
+                </summary>
+                <div>
+                  ${op.description ? `<p class="desc">${esc(op.description)}</p>` : ''}
+                  <h4>Parameters</h4>
+                  ${renderTable(paramRows(params), ['Name','In','Type','Required','Description'])}
+                  <h4>Request Body</h4>
+                  ${requestBodyInfo(op.requestBody)}
+                  <h4>Responses</h4>
+                  ${renderTable(responseRows(op.responses || {}), ['Code','Description'])}
+                </div>
+              </details>`;
+          }
+        }
+        content.innerHTML = html;
+      }catch(err){
+        status.textContent = 'Failed to load spec.';
+        content.innerHTML = `<div class="error"><strong>Error:</strong> ${esc(err.message)}</div>
+          <p class="small">Make sure <code class="mono">openapi.json</code> exists at the repo root. You can also change the fetch path inside this file.</p>`;
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
