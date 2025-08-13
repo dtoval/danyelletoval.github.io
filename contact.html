@@ -1,25 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Contact - Danyelle Toval</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact – Danyelle Toval</title>
+  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    /* Contact page layout (keeps your existing theme) */
+    .contact-wrap{max-width:980px;margin:28px auto 110px;padding:0 16px;display:grid;grid-template-columns:1fr;gap:18px}
+    .contact-card{background:#fff;border:1px solid #e6e8ee;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06);padding:16px}
+    .contact-card h2{margin:0 0 8px}
+    .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .form-row{display:flex;flex-direction:column;gap:6px}
+    .form-row.full{grid-column:1 / -1}
+    label{font-weight:600}
+    input, textarea, select{
+      border:1px solid #dfe3ea;border-radius:10px;padding:10px 12px;font-size:14px;
+    }
+    textarea{min-height:140px;resize:vertical}
+    .hint{font-size:12px;color:#6b7280}
+    .form-actions{display:flex;gap:10px;margin-top:10px}
+    .success{display:none;margin-top:10px;color:#155724;background:#e6ffed;border:1px solid #b7f5c2;padding:10px;border-radius:8px}
+    .error{display:none;margin-top:10px;color:#9f1d1d;background:#ffecec;border:1px solid #ffbcbc;padding:10px;border-radius:8px}
+    /* hide honeypot */
+    .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+  </style>
 </head>
 <body>
-<header>
-  <h1>Contact</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-<main>
-  <p>Email: <a href="mailto:your.email@example.com">danyelle.toval@gmai.com</a></p>
-  <p>LinkedIn: <a href="https://www.linkedin.com/in/danyelletoval" target="_blank">linkedin.com/in/danyelletoval</a></p>
-</main>
-<footer>
-  <p>&copy; 2025 Danyelle Toval</p>
-</footer>
+  <header class="site-header">
+    <div class="brand">
+      <img class="brand-logo" src="logo.png" alt="Butterfly logo" />
+      <div class="brand-text">
+        <div class="site-name">Danyelle Toval</div>
+        <div class="site-tag">Technical Writer &amp; eLearning Developer</div>
+      </div>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="contact-wrap">
+      <section class="contact-card">
+        <h1>Contact Me</h1>
+        <p class="intro">Have a project, sample request, or question? Send me a message and I’ll get back to you.</p>
+
+        <form id="contactForm" aria-label="Contact form">
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" required placeholder="Jane Doe" />
+            </div>
+
+            <div class="form-row">
+              <label for="email">Your email</label>
+              <input id="email" name="email" type="email" required placeholder="jane@example.com" />
+            </div>
+
+            <div class="form-row full">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" required placeholder="Portfolio inquiry" />
+            </div>
+
+            <div class="form-row full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell me a bit about your project, timeline, and goals."></textarea>
+              <div class="hint">I typically respond within 1–2 business days.</div>
+            </div>
+          </div>
+
+          <!-- Honeypot (spam trap) -->
+          <input class="hp" type="text" id="company" name="company" autocomplete="off" tabindex="-1" />
+
+          <div class="form-actions">
+            <button class="btn" type="submit">Send Message</button>
+            <a class="btn-ghost" href="Danyelle_Toval_Resume.pdf" download>Download Résumé</a>
+          </div>
+
+          <div id="ok" class="success" role="status" aria-live="polite">Thanks! Your mail app is opening…</div>
+          <div id="bad" class="error" role="alert">Hmm, I couldn’t open your email app. You can email me directly at the address below.</div>
+        </form>
+      </section>
+
+      <section class="contact-card">
+        <h2>Direct Email</h2>
+        <p>
+          Prefer to email directly? Use:
+          <br />
+          <a id="mailtoLink" class="btn-ghost" href="mailto:contact@example.com">contact@example.com</a>
+        </p>
+        <p class="hint">Tip: If the button above doesn’t open your mail client, copy the address and paste it into your email.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Danyelle Toval</p>
+  </footer>
+
+  <script>
+    // TODO: replace with your real email
+    const TO_EMAIL = "contact@example.com";
+
+    // keep the visible mailto link in sync
+    const mailtoA = document.getElementById("mailtoLink");
+    mailtoA.textContent = TO_EMAIL;
+    mailtoA.href = "mailto:" + TO_EMAIL;
+
+    const form = document.getElementById("contactForm");
+    const ok = document.getElementById("ok");
+    const bad = document.getElementById("bad");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // honeypot check
+      if (document.getElementById("company").value.trim() !== "") {
+        bad.style.display = "block";
+        bad.textContent = "Spam detected. If this is an error, email me directly at " + TO_EMAIL + ".";
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim() || "Portfolio inquiry";
+      const message = document.getElementById("message").value.trim();
+
+      const body =
+        `Name: ${name}%0D%0A` +
+        `Email: ${email}%0D%0A` +
+        `Subject: ${subject}%0D%0A%0D%0A` +
+        `${encodeURIComponent(message)}`;
+
+      const mailto = `mailto:${encodeURIComponent(TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+      try {
+        window.location.href = mailto;
+        ok.style.display = "block";
+        bad.style.display = "none";
+      } catch (err) {
+        ok.style.display = "none";
+        bad.style.display = "block";
+      }
+    });
+  </script>
 </body>
 </html>
