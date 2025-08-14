@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio - Danyelle Toval</title>
 
-  <!-- Favicon / App Icons (upload logo.png to repo root) -->
+  <!-- Favicon / App Icons -->
   <link rel="icon" href="logo.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="logo.png" />
   <meta name="theme-color" content="#333740" />
 
   <!-- SEO / Social -->
-  <meta name="description" content="Technical writing portfolio: API docs, release notes, SOPs, and user guides." />
+  <meta name="description" content="Technical writing portfolio by Danyelle Toval: API documentation, release notes, SOPs, and quick reference guides." />
   <link rel="canonical" href="https://dtoval.github.io/danyelletoval.github.io/portfolio.html" />
   <meta property="og:title" content="Danyelle Toval – Technical Writing Portfolio" />
-  <meta property="og:description" content="API docs, release notes, SOPs, and user guides." />
+  <meta property="og:description" content="API documentation, release notes, SOPs, and quick reference guides." />
   <meta property="og:url" content="https://dtoval.github.io/danyelletoval.github.io/portfolio.html" />
   <meta property="og:image" content="https://dtoval.github.io/danyelletoval.github.io/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -24,7 +24,7 @@
 <body>
   <header class="site-header">
     <div class="brand">
-      <img class="brand-logo" src="logo.png" alt="DT logo" />
+      <img class="brand-logo" src="logo.png" alt="Danyelle Toval logo" />
       <div class="brand-text">
         <div class="site-name">Danyelle Toval</div>
         <div class="site-tag">Technical Writing Portfolio</div>
@@ -40,54 +40,58 @@
   </header>
 
   <main class="page-main">
-    <h2>Technical Writing Samples</h2>
+    <h1>Technical Writing Samples</h1>
+    <p class="lead">
+      Portfolio highlights include API documentation, release notes, standard operating procedures, and quick reference guides for legal, healthcare, and SaaS environments. Tools: Articulate Storyline, SCORM, Git, and AsciiDoc.
+    </p>
 
     <section class="cards">
       <!-- API -->
       <article class="card">
-        <h3>LMS API</h3>
-        <p>OpenAPI spec with an interactive reference and copy-paste examples.</p>
+        <h2>LMS API</h2>
+        <p>OpenAPI specification with an interactive reference and copy-paste examples.</p>
         <div class="actions">
-          <a class="btn" href="api-reference.html" target="_blank" rel="noopener">Interactive Reference</a>
-          <a class="btn-ghost" href="api-overview.html" target="_blank" rel="noopener">Overview &amp; Examples</a>
-          <a class="btn-ghost" href="openapi.json" target="_blank" rel="noopener">Spec (JSON)</a>
+          <a class="btn" href="api-reference.html" target="_blank" rel="noopener noreferrer" aria-label="Open interactive API reference in a new tab">Interactive Reference</a>
+          <a class="btn-ghost" href="api-overview.html" target="_blank" rel="noopener noreferrer" aria-label="Open API overview and examples in a new tab">Overview and Examples</a>
+          <!-- IMPORTANT: ensure openapi.json exists at the path below -->
+          <a class="btn-ghost" href="openapi.json" target="_blank" rel="noopener noreferrer" aria-label="Open OpenAPI specification JSON in a new tab">Spec JSON</a>
         </div>
       </article>
 
       <!-- Release Notes -->
       <article class="card">
-        <h3>Release Notes</h3>
-        <p>LMS portfolio sample with minor, feature, and major releases.</p>
+        <h2>Release Notes</h2>
+        <p>LMS sample with minor, feature, and major releases.</p>
         <div class="actions">
-          <a class="btn" href="LMS_Release_Notes_Portfolio.pdf" target="_blank" rel="noopener">View PDF</a>
-          <a class="btn-ghost" href="LMS_Release_Notes_Portfolio.pdf" download>Download</a>
+          <a class="btn" href="LMS_Release_Notes_Portfolio.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Release Notes PDF in a new tab">View Release Notes PDF</a>
+          <a class="btn-ghost" href="LMS_Release_Notes_Portfolio.pdf" download aria-label="Download Release Notes PDF">Download</a>
         </div>
       </article>
 
       <!-- SOP -->
       <article class="card">
-        <h3>Sample SOP</h3>
-        <p>Step-by-step SOP with disclaimer and scrubbed identifiers.</p>
+        <h2>Sample SOP</h2>
+        <p>Step by step SOP with disclaimer and scrubbed identifiers.</p>
         <div class="actions">
-          <a class="btn" href="SOP_LMS_Create_a_Course_Portfolio.pdf" target="_blank" rel="noopener">View PDF</a>
-          <a class="btn-ghost" href="SOP_LMS_Create_a_Course_Portfolio.pdf" download>Download</a>
+          <a class="btn" href="SOP_LMS_Create_a_Course_Portfolio.pdf" target="_blank" rel="noopener noreferrer" aria-label="View SOP PDF in a new tab">View SOP PDF</a>
+          <a class="btn-ghost" href="SOP_LMS_Create_a_Course_Portfolio.pdf" download aria-label="Download SOP PDF">Download</a>
         </div>
       </article>
 
-      <!-- User Guides (placeholder) -->
+      <!-- QRG -->
       <article class="card">
-        <h3>Quick Reference Guide</h3>
-        <p>Quick Reference Guide.</p>
+        <h2>Quick Reference Guide</h2>
+        <p>Quick reference guide for common learner tasks.</p>
         <div class="actions">
-           <a class="btn" href="Sample_University_Standard_Learner_QRG.pdf" target="_blank" rel="noopener">View PDF</a>
-          <a class="btn-ghost" href="SOP_LMS_Create_a_Course_Portfolio.pdf" download>Download</a>
+          <a class="btn" href="Sample_University_Standard_Learner_QRG.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Quick Reference Guide PDF in a new tab">View Quick Reference Guide PDF</a>
+          <a class="btn-ghost" href="Sample_University_Standard_Learner_QRG.pdf" download aria-label="Download Quick Reference Guide PDF">Download</a>
         </div>
       </article>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2025 Danyelle Toval</p>
+    <p>© 2025 Danyelle Toval • LMS administration • API documentation • SOPs • Release notes • SCORM • Articulate Storyline • Git • AsciiDoc</p>
   </footer>
 </body>
 </html>
