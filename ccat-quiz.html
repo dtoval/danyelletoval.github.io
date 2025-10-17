@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCAT Interactive Practice Quiz</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; margin: 40px; }
+  h1 { text-align: center; }
+  .question { margin-bottom: 20px; }
+  .options label { display: block; margin: 5px 0; }
+  button { margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+  button:hover { background-color: #0056b3; }
+  #timer { font-weight: bold; color: #d9534f; }
+  #result { font-size: 1.2em; margin-top: 20px; text-align: center; }
+</style>
+</head>
+<body>
+<h1>CCAT Mini Interactive Quiz</h1>
+<p><strong>Time Limit:</strong> 5 minutes <span id="timer">(05:00)</span></p>
+<form id="quizForm">
+  <div class="question">
+    <p>1. A car travels 72 miles in 1 hour and 12 minutes. What is its average speed?</p>
+    <div class="options">
+      <label><input type="radio" name="q1" value="C"> 60 mph</label>
+      <label><input type="radio" name="q1" value="A"> 50 mph</label>
+      <label><input type="radio" name="q1" value="B"> 55 mph</label>
+      <label><input type="radio" name="q1" value="D"> 65 mph</label>
+    </div>
+  </div>
+  <div class="question">
+    <p>2. Which word is most similar to “diligent”?</p>
+    <div class="options">
+      <label><input type="radio" name="q2" value="B"> Careful</label>
+      <label><input type="radio" name="q2" value="A"> Lazy</label>
+      <label><input type="radio" name="q2" value="C"> Quick</label>
+      <label><input type="radio" name="q2" value="D"> Forgetful</label>
+    </div>
+  </div>
+  <div class="question">
+    <p>3. What number comes next in this sequence: 2, 6, 12, 20, 30?</p>
+    <div class="options">
+      <label><input type="radio" name="q3" value="B"> 42</label>
+      <label><input type="radio" name="q3" value="A"> 36</label>
+      <label><input type="radio" name="q3" value="C"> 56</label>
+      <label><input type="radio" name="q3" value="D"> 72</label>
+    </div>
+  </div>
+  <div class="question">
+    <p>4. A store discounts an item by 25%. If the sale price is $60, what was the original price?</p>
+    <div class="options">
+      <label><input type="radio" name="q4" value="D"> $80</label>
+      <label><input type="radio" name="q4" value="A"> $70</label>
+      <label><input type="radio" name="q4" value="B"> $75</label>
+      <label><input type="radio" name="q4" value="C"> $90</label>
+    </div>
+  </div>
+  <div class="question">
+    <p>5. Which word is the opposite of “expand”?</p>
+    <div class="options">
+      <label><input type="radio" name="q5" value="B"> Shrink</label>
+      <label><input type="radio" name="q5" value="A"> Enlarge</label>
+      <label><input type="radio" name="q5" value="C"> Extend</label>
+      <label><input type="radio" name="q5" value="D"> Increase</label>
+    </div>
+  </div>
+  <button type="button" onclick="submitQuiz()">Submit</button>
+</form>
+<div id="result"></div>
+<script>
+  const correctAnswers = { q1: 'C', q2: 'B', q3: 'B', q4: 'D', q5: 'B' };
+
+  function submitQuiz() {
+    const form = document.forms['quizForm'];
+    let score = 0;
+    for (let key in correctAnswers) {
+      const answer = form[key].value;
+      if (answer === correctAnswers[key]) score++;
+    }
+    document.getElementById('result').textContent = `You scored ${score} out of 5.`;
+  }
+
+  // Timer
+  let timeLeft = 300;
+  const timerDisplay = document.getElementById('timer');
+  const countdown = setInterval(() => {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    timerDisplay.textContent = `(${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')})`;
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      submitQuiz();
+      document.getElementById('result').textContent += ' (Time’s up!)';
+    }
+    timeLeft--;
+  }, 1000);
+</script>
+</body>
+</html>
