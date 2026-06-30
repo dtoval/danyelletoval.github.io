@@ -25,3 +25,46 @@
     margin-top:15px;
     font-weight:bold;
 }
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.featured-docs {
+  width: min(1100px, 92%);
+  margin: 0 auto 60px;
+}
+
+.featured-docs h2 {
+  margin-bottom: 22px;
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.doc-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.doc-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.doc-card p {
+  margin-bottom: 18px;
+}
+
+.doc-card a {
+  font-weight: 700;
+  text-decoration: none;
+}
