@@ -1,190 +1,27 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #f9f9f9; /* light background for readability */
-  color: #333;
+.featured-docs{
+    margin-top:60px;
 }
 
-header {
-  background-color: #333740; /* dark gray */
-  color: white;
-  padding: 15px;
-  text-align: center;
+.doc-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
 }
 
-/* Make sure nav area also has the dark gray background */
-nav {
-  background-color: #333740;
-  padding: 10px 0;
+.doc-card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
+.doc-card h3{
+    margin-top:0;
 }
 
-nav a:hover {
-  text-decoration: underline;
+.doc-card a{
+    display:inline-block;
+    margin-top:15px;
+    font-weight:bold;
 }
-
-main {
-  padding: 20px;
-}
-
-footer {
-  background-color: #333740; /* dark gray */
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-/* === Upgrades for brand header, nav, cards, buttons === */
-:root{
-  --brand:#333740;
-  --bg:#f9f9f9;
-  --text:#333;
-  --card:#ffffff;
-  --border:#e6e8ee;
-  --shadow:0 6px 18px rgba(0,0,0,.06);
-}
-
-/* Brand header (more flexible than the default header rule) */
-.site-header{
-  background-color: var(--brand);
-  color: #fff;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.brand{display:flex; align-items:center; gap:12px}
-.brand-logo{width:40px; height:40px; object-fit:contain; background:#fff; border-radius:8px; padding:2px}
-.brand-text .site-name{font-weight:700; font-size:18px; line-height:1.1}
-.brand-text .site-tag{font-size:12px; opacity:.9}
-
-.site-nav{display:flex; gap:16px}
-.site-nav a{color:#fff; text-decoration:none; padding:6px 4px; border-bottom:2px solid transparent}
-.site-nav a:hover, .site-nav a[aria-current="page"]{border-color:#e6ebf4}
-
-/* Page spacing so fixed footer doesn’t overlap content */
-.page-main{padding:20px; padding-bottom:110px}
-
-/* Card grid */
-.cards{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap:18px;
-  margin-top: 10px;
-}
-.card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: var(--shadow);
-}
-.card h3{margin:0 0 6px}
-.card p{margin:0 0 12px; color:#4a5160}
-.actions{display:flex; flex-wrap:wrap; gap:10px}
-
-/* Buttons */
-.btn, .btn-ghost{
-  display:inline-block;
-  font-size:14px;
-  border-radius:10px;
-  text-decoration:none;
-  padding:8px 12px;
-}
-.btn{background:var(--brand); color:#fff}
-.btn:hover{filter:brightness(1.05)}
-.btn-ghost{background:transparent; color:var(--brand); border:1px solid var(--brand)}
-.btn-ghost:hover{background:var(--brand); color:#fff}
-
-/* Footer stays fixed as before */
-.site-footer{
-  background-color: var(--brand);
-  color:#fff;
-  text-align:center;
-  padding:10px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-
-/* Small screens */
-@media (max-width:600px){
-  .brand-logo{width:32px; height:32px}
-  .brand-text .site-name{font-size:16px}
-}
-
-/* Hero / welcome */
-.hero { max-width: 900px; margin: 28px auto 96px; padding: 0 16px; }
-.hero .accent { color: #333740; }
-.tagline { font-weight: 600; margin-top: -6px; margin-bottom: 8px; }
-.intro { margin: 6px 0; color: #4a5160; }
-.hero-actions { display: flex; gap: 10px; margin: 12px 0 14px; }
-
-.highlights { 
-  list-style: none; padding: 0; margin: 16px 0; 
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 16px;
-}
-.highlights li::before { content: "• "; color: #333740; font-weight: 700; }
-
-.quote { 
-  margin: 18px 0 0; padding: 14px 16px; 
-  border-left: 4px solid #333740; background: #f6f7f9; border-radius: 8px;
-}
-.quote .attribution { display: block; margin-top: 6px; color: #6b7280; font-size: 0.9em; }
-
-/* Buttons (reuses your theme) */
-.btn, .btn-ghost {
-  display: inline-block; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-size: 14px;
-}
-.btn { background: #333740; color: #fff; }
-.btn:hover { filter: brightness(1.05); }
-.btn-ghost { border: 1px solid #333740; color: #333740; }
-.btn-ghost:hover { background: #333740; color: #fff; }
-
-/* Hero with logo */
-.hero { max-width: 980px; margin: 28px auto 110px; padding: 0 16px; }
-.hero-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-.hero-logo { width: 56px; height: 56px; object-fit: contain; }
-.accent { color: #333740; }
-.tagline { font-weight: 600; margin: -6px 0 8px; }
-.intro { margin: 6px 0; color: #4a5160; }
-.hero-actions { display: flex; gap: 10px; margin: 12px 0 14px; }
-
-/* Highlights grid */
-.highlights { 
-  list-style: none; padding: 0; margin: 14px 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px;
-}
-.highlights li::before { content: "• "; color: #333740; font-weight: 700; }
-
-/* Tool chips */
-.tools { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  display: inline-block; background: #eef1f6; border: 1px solid #dfe3ea;
-  padding: 4px 10px; border-radius: 999px; font-size: 13px; color: #2b2f36;
-}
-
-/* Quote */
-.quote { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid #333740; background: #f6f7f9; border-radius: 8px; }
-.quote .attribution { display: block; margin-top: 6px; color: #6b7280; font-size: .9em; }
-
-/* Buttons (reuse theme) */
-.btn, .btn-ghost { display: inline-block; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-size: 14px; }
-.btn { background: #333740; color: #fff; }
-.btn:hover { filter: brightness(1.05); }
-.btn-ghost { border: 1px solid #333740; color: #333740; }
-.btn-ghost:hover { background: #333740; color: #fff; }
-
-@media (max-width: 600px){
-  .hero-logo { width: 44px; height: 44px; }
-}
-
