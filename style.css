@@ -68,3 +68,82 @@
   font-weight: 700;
   text-decoration: none;
 }
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.portfolio-hero {
+  width: min(1050px, 92%);
+  margin: 48px auto 32px;
+  padding: 48px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+}
+
+.portfolio-hero h1 {
+  margin: 8px 0 14px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.portfolio-hero p {
+  max-width: 780px;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .85rem;
+}
+
+.portfolio-section {
+  width: min(1050px, 92%);
+  margin: 0 auto 64px;
+}
+
+.portfolio-section h2 {
+  margin-bottom: 24px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.portfolio-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+.portfolio-card h3 {
+  margin: 10px 0;
+}
+
+.portfolio-card p {
+  line-height: 1.6;
+}
+
+.portfolio-card a {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.doc-type {
+  display: inline-block;
+  font-size: .8rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #f2f2f2;
+}
